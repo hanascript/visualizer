@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Fira_Code } from 'next/font/google';
 import './globals.css';
+import { cn } from '@/lib/utils';
 
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const inter = Fira_Code({ subsets: ['latin'], variable: '--font-inter' });
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -20,7 +21,7 @@ export default function RootLayout({
       lang='en'
       suppressHydrationWarning
     >
-      <body className='min-h-screen bg-background font-inter antialiased'>{children}</body>
+      <body className={cn('min-h-screen bg-background font-inter antialiased', inter.variable)}>{children}</body>
     </html>
   );
 }

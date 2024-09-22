@@ -1,47 +1,54 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import { useMount } from 'react-use';
 import { useSortingAlgorithm } from '@/features/sorting/hooks/use-sorting-algorithm';
-import { generateRandomNumberFromInterval } from '@/lib/utils';
+import { useLifecycles } from 'react-use';
+import { SortingButtons } from './sorting-buttons';
+import { SortingSlider } from './sorting-slider';
 
 export const SortingVisualizer = () => {
-  const { arrayToSort, setArrayToSort } = useSortingAlgorithm();
+  const { arrayToSort, resetArrayAnimation, speed } = useSortingAlgorithm();
 
-  // Function to generate random array
-  const generateArray = () => {
-    const newArray = Array.from({ length: 35 }, () => generateRandomNumberFromInterval(5, 80));
-    setArrayToSort(newArray);
-  };
-
-  useMount(() => {
-    generateArray();
-  });
+  useLifecycles(
+    () => {
+      resetArrayAnimation();
+      window.addEventListener('resize', resetArrayAnimation);
+    },
+    () => {
+      window.removeEventListener('resize', resetArrayAnimation);
+    }
+  );
 
   return (
-    <div className='flex flex-col md:flex-row p-4'>
+    <div className='p-4'>
       {/* Info Section */}
-      <div className='md:w-1/2'>
+      <div className='space-y-4'>
         <h2 className='text-xl font-bold mb-2'>Sorting Algorithm</h2>
         <p className='text-sm'>
           This is where you can put information about the sorting algorithm. Explain how it works, its time complexity,
           and other relevant details.
         </p>
+        {speed}
+        <SortingButtons />
+        <SortingSlider />
       </div>
 
       {/* Visualization Section */}
-      <div className='md:w-1/2'>
-        <h2 className='text-xl font-bold mb-2'>Visualizer</h2>
-        <div className='h-64  flex items-end justify-center border'>
+
+      <div className='h-64 flex items-center justify-center bg-muted rounded'>
+        <div
+          id='content-container'
+          className='flex items-end justify-center h-2/3 pb-4  w-full px-4'
+        >
           {arrayToSort.map((value, index) => (
             <div
               key={index}
-              className='w-2 bg-black mx-0.5'
-              style={{ height: `${value}%` }}
-            />
+              className='array-line default-line-color rounded mx-0.5 w-5 relative shadow-xl border-2'
+              style={{ height: `${value}px` }}
+            >
+              <span className='absolute -bottom-5 left-0 text-center text-xs'>{value}</span>
+            </div>
           ))}
         </div>
-        <Button onClick={generateArray}>Generate New Array</Button>
       </div>
     </div>
   );
