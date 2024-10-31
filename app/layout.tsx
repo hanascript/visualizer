@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
-import { Inter, Fira_Code } from 'next/font/google';
-import './globals.css';
 import { cn } from '@/lib/utils';
+import type { Metadata } from 'next';
+import { Fira_Code } from 'next/font/google';
+import './globals.css';
 
 
 const inter = Fira_Code({ subsets: ['latin'], variable: '--font-inter' });

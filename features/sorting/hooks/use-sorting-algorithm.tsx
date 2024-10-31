@@ -13,6 +13,7 @@ type State = {
 
 type Action = {
   setSpeed: (speed: number[]) => void;
+  setAlgorithm: (algorithm: SortingAlgorithmType) => void;
   resetArrayAnimation: () => void;
   runAnimation: (animations: AnimationArrayType) => void;
 };
@@ -28,6 +29,7 @@ export const useSortingAlgorithm = create<AlgorithmState>((set, get) => ({
   isSorted: false,
 
   setSpeed: speed => set({ speed: speed[0] }),
+  setAlgorithm: algorithm => set({ algorithm: algorithm }),
 
   resetArrayAnimation: () => {
     const contentContainer = document.getElementById('content-container');

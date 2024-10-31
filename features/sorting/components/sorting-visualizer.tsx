@@ -4,6 +4,7 @@ import { useSortingAlgorithm } from '@/features/sorting/hooks/use-sorting-algori
 import { useLifecycles } from 'react-use';
 import { SortingButtons } from './sorting-buttons';
 import { SortingSlider } from './sorting-slider';
+import { SortingSelect } from './sorting-select';
 
 export const SortingVisualizer = () => {
   const { arrayToSort, resetArrayAnimation, speed } = useSortingAlgorithm();
@@ -23,6 +24,7 @@ export const SortingVisualizer = () => {
       {/* Info Section */}
       <div className='space-y-4'>
         <h2 className='text-xl font-bold mb-2'>Sorting Algorithm</h2>
+        <SortingSelect />
         <p className='text-sm'>
           This is where you can put information about the sorting algorithm. Explain how it works, its time complexity,
           and other relevant details.
